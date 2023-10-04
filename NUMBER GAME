@@ -1,0 +1,46 @@
+import random
+
+def play_guessing_game():
+    print("Welcome to the Guessing Game!")
+    rounds_played = 0
+    total_attempts = 0
+    best_score = float('inf')
+    
+    while True:
+        lower_bound = 1
+        upper_bound = 100
+        target_number = random.randint(lower_bound, upper_bound)
+        attempts = 0
+        
+        print(f"\nRound {rounds_played + 1}")
+        print(f"Guess a number between {lower_bound} and {upper_bound}.")
+        
+        while True:
+            try:
+                user_guess = int(input("Enter your guess: "))
+                attempts += 1
+                
+                if user_guess == target_number:
+                    print(f"Congratulations! You guessed the correct number {target_number} in {attempts} attempts!")
+                    total_attempts += attempts
+                    best_score = min(best_score, attempts)
+                    break
+                elif user_guess < target_number:
+                    print("Too low. Try again.")
+                else:
+                    print("Too high. Try again.")
+            except ValueError:
+                print("Invalid input. Please enter a valid number.")
+        
+        play_again = input("Do you want to play again? (yes/no): ").lower()
+        if play_again != 'yes':
+            break
+        
+        rounds_played += 1
+    
+    if rounds_played > 0:
+        average_attempts = total_attempts / rounds_played
+        print(f"\nGame Over!\nRounds played: {rounds_played}\nBest score: {best_score} attempts\nAverage attempts per round: {average_attempts}")
+
+if __name__ == "__main__":
+    play_guessing_game()
